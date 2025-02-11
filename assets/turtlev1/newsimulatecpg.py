@@ -2,6 +2,7 @@ import mujoco
 import mujoco.viewer
 import time
 import numpy as np
+import os
 
 # -----------------------------------------------------------------------------
 #                           HOPF OSCILLATOR DYNAMICS
@@ -45,7 +46,7 @@ def hopf_step(x, y, alpha, mu, omega, dt, coupling, xall, yall, index):
 # -----------------------------------------------------------------------------
 #                           LOAD MUJOCO MODEL
 # -----------------------------------------------------------------------------
-model_path = 'c:/Users/chike/Box/TurtleRobotExperiments/Sea_Turtle_Robot_AI_Powered_Simulations_Project/NnamdiFiles/mujocotest1/assets/turtlev1/testrobot1.xml'
+model_path = os.path.join(os.getcwd(), "assets/turtlev1/testrobot1.xml")
 model = mujoco.MjModel.from_xml_path(model_path)
 data = mujoco.MjData(model)
 
@@ -218,6 +219,13 @@ with mujoco.viewer.launch_passive(model, data) as viewer:
             angle_clamped = np.clip(angle_raw, min_angle, max_angle)
 
             data.ctrl[actuator_indices[name]] = angle_clamped
+
+
+
+        # Example modification of a viewer option: toggle contact points every two seconds.
+        with viewer.lock():
+            viewer.opt.flags[mujoco.mjtVisFlag.mjVIS_CONTACTPOINT] = int(data.time % 2)
+
 
         # ---------------------------------------------------------------------
         # 3) Step Mujoco simulation once and sync the viewer

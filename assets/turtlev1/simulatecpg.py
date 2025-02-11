@@ -7,7 +7,6 @@ import os
 # -----------------------------------------------------------------------------
 #                            LOAD MUJOCO MODEL
 # -----------------------------------------------------------------------------
-model_path = 'c:/Users/chike/Box/TurtleRobotExperiments/Sea_Turtle_Robot_AI_Powered_Simulations_Project/NnamdiFiles/mujocotest1/assets/turtlev1/testrobot1.xml'
 
 model_path = os.path.join(os.getcwd(), "assets/turtlev1/testrobot1.xml")
 
