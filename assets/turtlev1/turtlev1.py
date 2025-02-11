@@ -3,7 +3,7 @@ import time
 import mujoco
 import mujoco.viewer
 
-m = mujoco.MjModel.from_xml_path('assets/turtlev1/testrobot1.xml')
+m = mujoco.MjModel.from_xml_path('testrobot1.xml')
 d = mujoco.MjData(m)
 
 with mujoco.viewer.launch_passive(m, d) as viewer:
