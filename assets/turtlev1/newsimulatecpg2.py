@@ -2,13 +2,13 @@ import mujoco
 import mujoco.viewer
 import time
 import numpy as np
-import os
 
 # -----------------------------------------------------------------------------
 #                          LOAD MUJOCO MODEL
 # -----------------------------------------------------------------------------
-model_path = os.path.join(os.getcwd(), "assets/turtlev1/testrobot1.xml")
-model = mujoco.MjModel.from_xml_path(model_path)
+import os
+cwd = os.getcwd()
+model_path = os.path.join(cwd, 'testrobot1.xml')model = mujoco.MjModel.from_xml_path(model_path)
 data = mujoco.MjData(model)
 
 def get_actuator_index(model, name):
@@ -122,7 +122,7 @@ def run_simulation(gait_fn, sim_steps=10000, dt=0.001):
 
     
     # Control ranges (min, max) for each actuator as defined in the XML.
-    ctrl_min = np.array([-0.524, -1.571, -1.22, -0.64, -1.571, -1.57])
+    ctrl_min = np.array([-0.524, -1.571, -1.22, -0.64, -1.571, -1.571])
     ctrl_max = np.array([ 1.571,  0.524,  1.571,  1.571,  1.22,  0.64])
     
     def clip_angle(theta, idx):
@@ -176,7 +176,7 @@ def run_simulation(gait_fn, sim_steps=10000, dt=0.001):
 if __name__ == "__main__":
     # Example: Run simulation with the default gait.
     print("Running simulation with default gait...")
-    run_simulation(gait_option_default, sim_steps=20000, dt=0.001)
+    run_simulation(gait_option_default, sim_steps=10000, dt=0.001)
     
     # To run a different gait, simply call:
     # print("Running simulation with alternate gait...")

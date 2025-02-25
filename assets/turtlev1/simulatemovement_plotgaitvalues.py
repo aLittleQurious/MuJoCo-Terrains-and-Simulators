@@ -1,10 +1,13 @@
-import mujoco
-import mujoco.viewer
 import time
 import numpy as np
+import mujoco
+import mujoco.viewer
+import matplotlib.pyplot as plt
+import os
 
 # Load the model and create a simulation instance
-model_path = 'c:/Users/chike/Box/TurtleRobotExperiments/Sea_Turtle_Robot_AI_Powered_Simulations_Project/NnamdiFiles/mujocotest1/assets/turtlev1/testrobot1.xml'
+cwd = os.getcwd()
+model_path = os.path.join(cwd, 'testrobot1.xml')
 model = mujoco.MjModel.from_xml_path(model_path)
 data = mujoco.MjData(model)
 
@@ -36,17 +39,6 @@ sync_phase_shifts = {
     "pos_frontrighthip": -np.pi/4  
 }
 
-# Define phase shifts for each joint (in radians)
-diag_phase_shifts = {
-    "pos_frontleftflipper": 0.0,    
-    "pos_frontrightflipper": np.pi,  
-    "pos_backleft": np.pi/2,  
-    "pos_backright": -np.pi/2,  
-    "pos_frontlefthip": -np.pi/4,  
-    "pos_frontrighthip": -np.pi/4  
-}
-
-
 freq_tuner = 1.5  # Frequency tuning factor
 
 # Define the Fourier-based joint control functions with phase control
@@ -64,9 +56,14 @@ def turtle_motion_pattern(t_real):
         "pos_frontrighthip": joint_angle(t_real, -0.8, -0.57, 0.88 * freq_tuner, sync_phase_shifts["pos_frontrighthip"])
     }
 
+# Prepare data structures to store time and control values
+time_data = []
+ctrl_data = {name: [] for name in actuator_names}
+
 # Launch the viewer
 with mujoco.viewer.launch_passive(model, data) as viewer:
     start_time = time.time()
+
     while viewer.is_running():
         # Current simulation time
         current_time = time.time() - start_time
@@ -81,5 +78,25 @@ with mujoco.viewer.launch_passive(model, data) as viewer:
         # Step the simulation
         mujoco.mj_step(model, data)
 
+        # Record time and control data
+        time_data.append(current_time)
+        for name in actuator_names:
+            ctrl_data[name].append(data.ctrl[actuator_indices[name]])
+
         # Sync the viewer
         viewer.sync()
+
+# ----------------------------
+# Plot the stored joint angles
+# ----------------------------
+plt.figure(figsize=(10, 6))
+for name in actuator_names:
+    plt.plot(time_data, ctrl_data[name], label=name)
+
+plt.title('Actuator Control Values Over Time')
+plt.xlabel('Time (s)')
+plt.ylabel('Control Value (rad)')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()

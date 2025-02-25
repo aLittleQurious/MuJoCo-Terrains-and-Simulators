@@ -3,13 +3,13 @@ import mujoco.viewer
 import time
 import numpy as np
 import matplotlib.pyplot as plt
-import os
 
 # -----------------------------------------------------------------------------
 #                          LOAD MUJOCO MODEL
 # -----------------------------------------------------------------------------
-model_path = os.path.join(os.getcwd(), "assets/turtlev1/testrobot1.xml")
-model = mujoco.MjModel.from_xml_path(model_path)
+import os
+cwd = os.getcwd()
+model_path = os.path.join(cwd, 'testrobot1.xml')model = mujoco.MjModel.from_xml_path(model_path)
 data = mujoco.MjData(model)
 
 def get_actuator_index(model, name):
@@ -55,7 +55,7 @@ def gait_option_default(num_oscillators=6):
     K[4, 5] = k_front  # front left hip to front left flipper
     K[5, 4] = k_front
     # Optional small coupling between left and right front hips:
-    k_lr = 0.1
+    k_lr = 0.5
     K[2, 4] = k_lr
     K[4, 2] = k_lr
     return beta, K
@@ -103,8 +103,8 @@ def run_simulation(gait_fn, sim_steps=10000, dt=0.001):
     
     # Oscillator parameters
     alpha = 10.0         # convergence gain
-    mu = 2.0             # limit cycle parameter (amplitude ~sqrt(mu))
-    a_param = 1.0       # steepness for frequency modulation sigmoid
+    mu = 10.0             # limit cycle parameter (amplitude ~sqrt(mu))
+    a_param = 5.0       # steepness for frequency modulation sigmoid
     
     # Intrinsic swing frequency (rad/s) for each oscillator (e.g., 1 Hz swing phase)
     omega_sw = np.array([2*np.pi*1.0] * num_oscillators)
@@ -117,7 +117,7 @@ def run_simulation(gait_fn, sim_steps=10000, dt=0.001):
     
     # Mapping parameters: offsets and gains for converting oscillator output to joint angles.
     b = np.array([0.0, 0.0, 0.175, 0.463, -0.175, -0.463])
-    g = np.array([0.5, 0.5, 0.5, 0.5, 0.5, 0.5])
+    g = np.array([0.5, 0.5, 0.9, 0.5, 0.9, 0.5])
     
     # Control ranges (min, max) for each actuator as defined in the XML.
     ctrl_min = np.array([-0.524, -1.571, -1.22, -0.64, -1.571, -1.57])

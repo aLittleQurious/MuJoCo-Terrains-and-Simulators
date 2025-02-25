@@ -6,7 +6,8 @@ import sys
 import time
 
 # Paths
-xml_path = os.path.join(os.getcwd(), "assets/turtlev1/testrobot1.xml")
+cwd = os.getcwd()
+xml_path = os.path.join(cwd, 'testrobot1.xml')
 servo_data_path = "/mnt/data/processed_servo_data.npy"
 
 # Simulation settings

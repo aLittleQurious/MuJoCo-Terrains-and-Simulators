@@ -2,7 +2,6 @@ import mujoco
 import mujoco.viewer
 import time
 import numpy as np
-import os
 
 # -----------------------------------------------------------------------------
 #                           HOPF OSCILLATOR DYNAMICS
@@ -46,7 +45,7 @@ def hopf_step(x, y, alpha, mu, omega, dt, coupling, xall, yall, index):
 # -----------------------------------------------------------------------------
 #                           LOAD MUJOCO MODEL
 # -----------------------------------------------------------------------------
-model_path = os.path.join(os.getcwd(), "assets/turtlev1/testrobot1.xml")
+model_path = 'c:/Users/chike/Box/TurtleRobotExperiments/Sea_Turtle_Robot_AI_Powered_Simulations_Project/NnamdiFiles/mujocotest1/assets/turtlev1/testrobot1.xml'
 model = mujoco.MjModel.from_xml_path(model_path)
 data = mujoco.MjData(model)
 
@@ -90,9 +89,9 @@ joint_limits = {
 #           CPG PARAMETERS & INITIAL OSCILLATOR STATES
 # -----------------------------------------------------------------------------
 alpha     = 10.0   # Gain, convergence speed
-mu        = 0.04   # sets amplitude^2 => amplitude ~ sqrt(0.04) = 0.2
+mu        = 0.08   # sets amplitude^2 => amplitude ~ sqrt(0.04) = 0.2
 base_freq = 0.8    # baseline oscillator frequency (rad/s)
-global_freq_scale = 1.5  # scale all oscillator frequencies if desired
+global_freq_scale = 2.5  # scale all oscillator frequencies if desired
 
 oscillators = {}
 for name in actuator_names:
@@ -154,12 +153,12 @@ for i in range(num_joints):
 # We'll define angle = offset + gain * x_i, then clamp to [min, max].
 # You can tweak offset/gain if you want a different nominal posture or amplitude.
 joint_output_map = {
-    "pos_frontleftflipper":  {"offset": -0.46, "gain": 3.0},  # example offset
-    "pos_frontrightflipper": {"offset":  0.46, "gain": 3.0},
+    "pos_frontleftflipper":  {"offset": -0.8, "gain": 3.0},  # example offset
+    "pos_frontrightflipper": {"offset":  0.8, "gain": 3.0},
     "pos_backleft":          {"offset": -0.5,  "gain": 1.0},
     "pos_backright":         {"offset":  0.5,  "gain": 1.0},
-    "pos_frontlefthip":      {"offset":  0.0,  "gain": 1.0},
-    "pos_frontrighthip":     {"offset":  0.0,  "gain": 1.0}
+    "pos_frontlefthip":      {"offset":  0.3,  "gain": -1.0},
+    "pos_frontrighthip":     {"offset":  0.3,  "gain": 1.0}
 }
 
 # You can always refine these offsets/gains after testing 
@@ -219,13 +218,6 @@ with mujoco.viewer.launch_passive(model, data) as viewer:
             angle_clamped = np.clip(angle_raw, min_angle, max_angle)
 
             data.ctrl[actuator_indices[name]] = angle_clamped
-
-
-
-        # Example modification of a viewer option: toggle contact points every two seconds.
-        with viewer.lock():
-            viewer.opt.flags[mujoco.mjtVisFlag.mjVIS_CONTACTPOINT] = int(data.time % 2)
-
 
         # ---------------------------------------------------------------------
         # 3) Step Mujoco simulation once and sync the viewer

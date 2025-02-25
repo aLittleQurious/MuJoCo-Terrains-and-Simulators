@@ -4,8 +4,7 @@ import time
 import numpy as np
 
 # Load the model and create a simulation instance
-import os
-model_path = os.path.join(os.getcwd(), "assets/turtlev1/testrobot1.xml")
+model_path = 'c:/Users/chike/Box/TurtleRobotExperiments/Sea_Turtle_Robot_AI_Powered_Simulations_Project/NnamdiFiles/mujocotest1/assets/turtlev1/testrobot1.xml'
 model = mujoco.MjModel.from_xml_path(model_path)
 data = mujoco.MjData(model)
 

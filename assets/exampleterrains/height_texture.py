@@ -2,7 +2,7 @@ import numpy as np
 from PIL import Image
 
 # Generate random noise for terrain
-terrain = np.random.uniform(0, 255, (512, 512)).astype(np.uint8)
+terrain = np.random.uniform(0, 255, (1024, 1024)).astype(np.uint8)
 
 # Smooth it with a Gaussian filter for a natural look
 from scipy.ndimage import gaussian_filter

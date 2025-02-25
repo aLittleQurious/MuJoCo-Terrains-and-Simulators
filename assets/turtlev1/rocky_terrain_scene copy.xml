@@ -1,21 +1,17 @@
 <mujoco model="rocky_terrain_scene">
     <compiler angle="radian" inertiafromgeom="true"/>
     <option timestep="0.002" gravity="0 0 -9.81"/>
-    
-
-    <!-- Assets: Define the height field -->
-    <asset>
-        <hfield name="rocky_terrain" size="1 1 0.05 0.01" file="rocky_terrain.png"/>
-    </asset>
 
     <!-- World -->
     <worldbody>
-    <light name="sunlight" pos="5 5 5" dir="-1 -1 -1" diffuse="1 1 1" specular="0.5 0.5 0.5" ambient="1 1 1"/>
-        <light name="side_light" pos="-2 2 3" dir="1 -1 -1" diffuse="1 0.5 0.5" specular="1 1 1"/>
+        <light name="sunlight" pos="5 5 5" dir="-1 -1 -1" diffuse="1 1 1" specular="0.5 0.5 0.5" ambient="0.5 0.5 0.5"/>
 
         <!-- Ground Plane -->
         <geom name="ground_plane" type="plane" size="50 50 0.1" rgba="0.3 0.3 0.3 1"/>
 
+        <!-- Rocky Terrain: Many randomly placed and rotated boxes -->
+        <body name="rocky_terrain">
+            <!-- Generate many rocks -->
             <geom name="rock1" type="box" size="1 0.5 0.3" pos="-5 -5 0.3" quat="0.707 0 0.707 0" rgba="0.5 0.4 0.3 1"/>
             <geom name="rock2" type="box" size="0.8 0.6 0.4" pos="-4 -3 0.4" quat="0.923 0.382 0 0" rgba="0.4 0.3 0.2 1"/>
             <geom name="rock3" type="box" size="1 0.7 0.3" pos="-3 -6 0.3" quat="0.5 0.5 0.5 0.5" rgba="0.6 0.5 0.4 1"/>
@@ -26,5 +22,6 @@
             <geom name="rock8" type="box" size="0.9 0.9 0.5" pos="-6 3 0.5" quat="0.707 0 0.707 0" rgba="0.5 0.4 0.2 1"/>
             <geom name="rock9" type="box" size="1.3 0.5 0.4" pos="3 3 0.4" quat="0.866 0.5 0 0" rgba="0.5 0.3 0.3 1"/>
             <geom name="rock10" type="box" size="1.5 1.0 0.6" pos="-3 -2 0.6" quat="0.707 0.707 0 0" rgba="0.6 0.4 0.2 1"/>
+        </body>
     </worldbody>
 </mujoco>

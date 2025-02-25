@@ -2,10 +2,9 @@ import mujoco
 import mujoco.viewer
 import time
 import numpy as np
-import os
 
 # Load the model and create a simulation instance
-model_path = os.path.join(os.getcwd(), "assets/turtlev1/testrobot1.xml")
+model_path = 'c:/Users/chike/Box/TurtleRobotExperiments/Sea_Turtle_Robot_AI_Powered_Simulations_Project/NnamdiFiles/mujocotest1/assets/turtlev1/testrobot1.xml'
 model = mujoco.MjModel.from_xml_path(model_path)
 data = mujoco.MjData(model)
 
@@ -54,7 +53,7 @@ def turtle_motion_pattern(t_real):
         "pos_frontrighthip": joint_angle(t_real, -0.8, -0.57, 0.88 * freq_tuner, sync_phase_shifts["pos_frontrighthip"])
     }
 
-# 🟢 Initialize lists to store CoM tracking data
+#  Initialize lists to store CoM tracking data
 com_positions = []
 time_stamps = []
 
