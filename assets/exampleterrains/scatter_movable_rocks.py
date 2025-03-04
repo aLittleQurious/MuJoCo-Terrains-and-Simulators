@@ -6,10 +6,10 @@ dst_directory = "rocky_terrains" #Destination directory of the numbere of rocky 
 dst_filename_prefix = "movable_terrain" #Within the directory, this decides the filename
 num_copies = 10 #Number of rocky terrain variations you'd like to generate with parameters below
 
-n = 500 #number
+n = 300 #number
 size_range = [0.005, 0.015] #Size
 scatter_range = [-0.25, 0.25] #This is a 2d box in which the rocks are scattered
-height_range = [0.05, 0.1] #This is the height at which the rocks are scattered
+height_range = [0.3, 0.35] #This is the height at which the rocks are scattered
 mass_range = [0.00001, 0.0001]
 quat_range = [0, 1] #Rotation angles
 type = "ellipsoid" #Type of Rock
@@ -30,7 +30,7 @@ def append_rocks(src_file, dst_file, n, size_range, scatter_range, height_range,
         size = [random.uniform(size_range[0], size_range[1]) for _ in range(3)]
         scatter_position = [random.uniform(scatter_range[0], scatter_range[1]) for _ in range(2)]
         height_position = [random.uniform(height_range[0], height_range[1]) for _ in range(1)]
-        mass_range = [random.uniform(mass_range[0], height_range[1]) for _ in range(1)]
+        mass = [random.uniform(mass_range[0], mass_range[1]) for _ in range(1)]
         
         quat = [random.uniform(quat_range[0], quat_range[1]) for _ in range(4)]
         quat = [q / sum(quat) for q in quat]  # Normalize quaternion
@@ -49,8 +49,12 @@ def append_rocks(src_file, dst_file, n, size_range, scatter_range, height_range,
             "type": "free"
         })
         
+        inertial = ET.Element("inertial", {"pos": f"{scatter_position[0]} {scatter_position[1]} {height_position[0]}", "quat": f"{quat[0]} {quat[1]} {quat[2]} {quat[3]}", "mass": f"{mass[0]}"})
+
+        
         rock_body.append(joint)
         rock_body.append(rock_geom)
+        rock_body.append(inertial)
         rocky_terrain_body.append(rock_body)
     
     tree.write(dst_file)
