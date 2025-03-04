@@ -1,4 +1,5 @@
 <mujoco model="rocky_terrain_with_robot">
+    <include file="terrain0.xml"/>
     <compiler angle="radian" inertiafromgeom="true"/>
     <option timestep="0.002" gravity="0 0 -9.81"/>
 

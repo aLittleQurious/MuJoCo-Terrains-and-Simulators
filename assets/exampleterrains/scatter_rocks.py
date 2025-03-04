@@ -1,15 +1,21 @@
 import xml.etree.ElementTree as ET
 import random
+import os
 
-src_file = "rocky_terrain_scene.xml"
-n = 3000 #number
-size_range = [0.05, 0.15] #Size
-scatter_range = [-4, 4] #This is a 2d box in which the rocks are scattered
-height_range = [0, 0.02] #This is the height at which the rocks are scattered
+src_file = "rocky_terrain_scene.xml" #source file
+dst_directory = "rocky_terrains" #Destination directory of the numbere of rocky terrain variations
+dst_filename_prefix = "terrain" #Within the directory, this decides the filename
+num_copies = 10 #Number of rocky terrain variations you'd like to generate with parameters below
+
+n = 2000 #number
+size_range = [0.005, 0.015] #Size
+scatter_range = [-0.5, 0.5] #This is a 2d box in which the rocks are scattered
+height_range = [0, 0.015] #This is the height at which the rocks are scattered
 quat_range = [0, 1] #Rotation angles
+type = "ellipsoid" #Type of Rock
 
-"""This works by finding the xml_file, which is assumed to have a 'rocky_terrain_body' tag, and begins appending a bunch of scattered boxes, which act like rocks"""
-def append_rocks(src_file, dst_file, n, size_range, scatter_range, height_range, quat_range):
+"""This works by finding the xml_file, which is assumed to have a 'rocky_terrain_body' tag, and begins appending a bunch of scattered boxes, which act like rocks, to said tag"""
+def append_rocks(src_file, dst_file, n, size_range, scatter_range, height_range, quat_range, type="box"):
     tree = ET.parse(src_file)
     root = tree.getroot()
     rocky_terrain_body = root.find(".//body[@name='rocky_terrain_body']")
@@ -29,7 +35,7 @@ def append_rocks(src_file, dst_file, n, size_range, scatter_range, height_range,
 
         rock = ET.Element("geom", {
             "name": f"rock{i+1}",
-            "type": "box",
+            "type": type,
             "size": f"{size[0]} {size[1]} {size[2]}",
             "pos": f"{scatter_position[0]} {scatter_position[1]} {height_position[0]}",
             "quat": f"{quat[0]} {quat[1]} {quat[2]} {quat[3]}",
@@ -44,6 +50,7 @@ def append_rocks(src_file, dst_file, n, size_range, scatter_range, height_range,
 
     
 if __name__ == "__main__":
-    dst_file = "a_destination.xml"
     
-    append_rocks(src_file, dst_file, n, size_range, scatter_range, height_range, quat_range)
+    for i in range(num_copies): #create n copies of this terrain
+    
+        append_rocks(src_file, f"{dst_filename_prefix}{i}.xml", n, size_range, scatter_range, height_range, quat_range, type)
