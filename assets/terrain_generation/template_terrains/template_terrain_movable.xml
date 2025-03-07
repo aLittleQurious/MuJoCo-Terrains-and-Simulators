@@ -2,7 +2,7 @@
 
   <default>
     <default class="wall">
-      <geom type="plane" size=".25 .25 .05"/>
+      <geom type="plane" size=".5 .5 .05"/>
     </default>
   </default>
 
@@ -13,10 +13,10 @@
     <worldbody>
 
         <!-- Enclosing box -->
-        <geom name="+x" type="plane" size=".25 .25 .05" zaxis="1 0 0"  pos="-.25 0 0"/>
-        <geom name="-x" type="plane" size=".25 .25 .05" zaxis="-1 0 0" pos=".25 0 0"/>
-        <geom name="+y" type="plane" size=".25 .25 .05" zaxis="0 1 0"  pos="0 -.25 0"/>
-        <geom name="-y" type="plane" size=".25 .25 .05" zaxis="0 -1 0" pos="0 .25 0"/>
+        <geom name="+x" class="wall" zaxis="1 0 0"  pos="-.25 0 -.25"/>
+        <geom name="-x" class="wall" zaxis="-1 0 0" pos=".25 0 -.25"/>
+        <geom name="+y" class="wall" zaxis="0 1 0"  pos="0 -.25 -.25"/>
+        <geom name="-y" class="wall" zaxis="0 -1 0" pos="0 .25 -.25"/>
 
         <!--light-->
 
