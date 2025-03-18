@@ -45,7 +45,7 @@ def append_rocks(src_file, terrain_file_path, n, size_range, scatter_range, heig
             "size": f"{size[0]} {size[1]} {size[2]}",
             "quat": f"{quat[0]} {quat[1]} {quat[2]} {quat[3]}",
             "rgba": "0.5 0.4 0.3 1",
-        })
+        })     
         
         joint = ET.Element("joint", {
             "type": "free"

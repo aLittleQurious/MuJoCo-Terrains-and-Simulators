@@ -1,0 +1,4 @@
+robot_model: my-turtle.xml
+terrain_model: fixed_terrain.xml
+
+

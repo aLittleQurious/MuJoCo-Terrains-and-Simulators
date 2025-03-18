@@ -1,7 +1,7 @@
 <mujoco model="urdf_turtle_v2">
   <compiler angle="radian"/>
   <option solver="Newton" tolerance="1e-6" integrator="implicitfast"/>
-  <include file="movable_terrain.xml"/>
+  <include file="sloped_terrain.xml"/>
 
   <asset>
     <mesh name="base_link" file="base_link.STL"/>
