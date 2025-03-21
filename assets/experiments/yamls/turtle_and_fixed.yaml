@@ -1,0 +1,5 @@
+robot_model: turtlev1.xml
+terrain_model: fixed_terrain.xml
+simulation: simulatemovement_plotgaitvalues.py
+
+
