@@ -14,8 +14,11 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from setup import load_model_from_yaml
 
+if "yaml_path" not in globals(): #if yaml not provided, use model and data from this
+    raise ValueError("yaml_path must be provided.")
+yaml_path = globals().get("yaml_path")
 
-model, data = load_model_from_yaml.get_model_and_data_from_yaml("turtle_and_fixed.yaml")
+model, data = load_model_from_yaml.get_model_and_data_from_yaml(yaml_path)
 
 # Function to get actuator index by name
 def get_actuator_index(model, name):

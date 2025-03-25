@@ -2,11 +2,13 @@ import xml.etree.ElementTree as ET
 import random
 import os
 
+current_file_dir = os.path.dirname(os.path.abspath(__file__))
+
 src_file = "template_terrain_fixed.xml" #This is the NAME of template file we build upon. file_path finds the path to said file
-src_file_path = os.path.join(os.getcwd(), "..", "template_terrains", src_file) #get directory to the file since open needs the full path
+src_file_path = os.path.join(current_file_dir, "..", "template_terrains", src_file) #get directory to the file since open needs the full path
 
 terrain_file = "movable_terrain.xml" #This is the name of our created terrain. it gets sent to saved_t
-terrain_file_path = os.path.join(os.getcwd(), "..", "saved_terrains", terrain_file) #full path we save to
+terrain_file_path = os.path.join(current_file_dir, "..", "saved_terrains", terrain_file) #full path we save to
 
 
 n = 300 #number
@@ -20,7 +22,7 @@ rock_type = "ellipsoid" #Type of rock shape. cubes => box, pebble => ellipsoid
 
 
 """This works by finding the xml_file, which is assumed to have a 'rocky_terrain_body' tag, and begins appending a bunch of scattered boxes, which act like rocks."""
-def append_rocks(src_file, terrain_file_path, n, size_range, scatter_range, height_range, quat_range=[0, 1], rock_type="box", mass_range=[0.00001, 0.0001]):
+def append_rocks(src_file, terrain_file_path, n, size_range, scatter_range, height_range, quat_range=[0, 1], rock_type="box", mass_range=[0.0001, 0.0001]):
     tree = ET.parse(src_file)
     root = tree.getroot()
     worldbody = root.find(".//worldbody") #We must append to worldbody for rocks to be movable
@@ -111,7 +113,7 @@ def append_rocks(src_file, terrain_file_path, n, size_range, scatter_range, heig
     worldbody.append(wall_geom_minusy)
     
     tree.write(terrain_file_path)
-    print(f"Appended {n} rocks to {src_file} and saved as {terrain_file}.")
+    print(f"Appended {n} rocks to {terrain_file_path} and saved as {terrain_file}.")
     
     
 if __name__ == "__main__":

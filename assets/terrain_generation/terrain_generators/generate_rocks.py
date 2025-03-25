@@ -2,11 +2,14 @@ import xml.etree.ElementTree as ET
 import random
 import os
 
+current_file_dir = os.path.dirname(os.path.abspath(__file__))
+
+
 src_file = "template_terrain_fixed.xml" #This is the NAME of template file we build upon. file_path finds the path to said file
-src_file_path = os.path.join(os.getcwd(), "..", "template_terrains", src_file) #get directory to the file since open needs the full path
+src_file_path = os.path.join(current_file_dir, "..", "template_terrains", src_file) #get directory to the file since open needs the full path
 
 terrain_file = "fixed_terrain.xml" #This is the name of our created terrain. it gets sent to saved_t
-terrain_file_path = os.path.join(os.getcwd(), "..", "saved_terrains", terrain_file) #full path we save to
+terrain_file_path = os.path.join(current_file_dir, "..", "saved_terrains", terrain_file) #full path we save to
 
 n = 500 #number of rocks to make
 size_range = [0.005, 0.015] #Size
