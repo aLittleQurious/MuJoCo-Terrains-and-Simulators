@@ -31,15 +31,31 @@ def get_terrain_parameters(yaml_file):
 
     template_file = config.get("template_file")
     output_file = config.get("output_file")
+    terrain_type = config.get("terrain_type")
     parameters = config.get("parameters")
+    save_in_terrain_models = config.get("save_in_terrain_models")
 
     if not template_file or not output_file or not parameters:
-        print("Error: 'template_file' or 'terrain_file' or all parameters not specified in YAML file.")
+        print("Error: 'template_file' or 'terrain_file' all parameters not specified in YAML file.")
         return
+    
+    if not terrain_type:
+        terrain_type = "fixed"
+        
 
     # Construct file paths
     template_file_path = os.path.join(current_file_dir,"..", "template_terrains", template_file)
-    terrain_file_path = os.path.join(current_file_dir, "..", "saved_terrains", output_file)
+    
+    
+    #if we want to save in terrain models instead. Else, just say no
+    
+    if save_in_terrain_models == True:
+        terrain_file_path = os.path.join(current_file_dir, "..", "..", "experiments", "terrain_models", output_file)
+        #terrain_file_path = os.path.join(current_file_dir, "..", "saved_terrains", output_file)
+    else:
+        terrain_file_path = os.path.join(current_file_dir, "..", "saved_terrains", output_file)
+    print("Saving as:", terrain_file_path)
+    #if
 
     # Check if files exist
     template_exists = os.path.isfile(template_file_path)
@@ -47,7 +63,7 @@ def get_terrain_parameters(yaml_file):
     # Output results
     if template_file:
         print(f"Template file found: {template_file}")
-        return template_file_path, terrain_file_path, parameters
+        return template_file_path, terrain_file_path, parameters, terrain_type
     else:
         if not template_exists:
             print(f"Error: Template file '{template_file}' not found in '{template_file_path}'")

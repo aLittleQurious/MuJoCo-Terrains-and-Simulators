@@ -3,11 +3,9 @@ import setup.load_model_from_yaml as load_model_from_yaml
 import runpy
 
 
-
-
 # Load the model and create a simulation instance
 #Input a yaml file to consume
-robot_model_simulation = "turtle_and_fixed.yaml"
+robot_model_simulation = "salamander_and_fixed.yaml"
 
 import sys
 
@@ -31,11 +29,9 @@ def main():
     
     runpy.run_path(simulation_path, init_globals={"yaml_path": robot_model_simulation})  
 
-
-
-
 if __name__ == "__main__":
     print("Usage: python main.py <your_argument>")
     print("Usage: You may also specify robot_model_simulation: at the top of main.py and run as normal")
+    print("Usage Example: python main.py turtle_and_fixed.yaml")
     print("Running main:")
     main()

@@ -65,12 +65,12 @@ def append_rocks(
                 "quat": f"{quat[0]} {quat[1]} {quat[2]} {quat[3]}",
                 "rgba": "0.5 0.4 0.3 1",
                 "friction": "0.01 0.01 0.01",
- 
+                "solimp": "0.4 0.4 0.001"
             },
         )
 
-        joint = ET.Element("joint", {"type": "free"}) #limited="true" range="0 0"
-        #joint = ET.Element("joint", {"type": "free", "damping":"5", "armature": "0.01"}) #limited="true" range="0 0"
+        #joint = ET.Element("joint", {"type": "free"}) #limited="true" range="0 0"
+        joint = ET.Element("joint", {"type": "free", "damping":"5", "armature": "0.01"}) #limited="true" range="0 0"
 
         inertial = ET.Element(
             "inertial",

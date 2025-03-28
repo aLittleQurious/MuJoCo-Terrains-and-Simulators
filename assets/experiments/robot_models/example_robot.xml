@@ -1,19 +1,10 @@
 <mujoco model="urdf_turtle_v2">
   <compiler angle="radian"/>
   <option solver="Newton" tolerance="1e-6" integrator="implicitfast"/>
-  <include file="sloped_terrain.xml"/>
 
   <asset>
-    <mesh name="base_link" file="base_link.STL"/>
-    <mesh name="backrightlink" file="backrightlink.STL"/>
-    <mesh name="backleftlink" file="backleftlink.STL"/>
-    <mesh name="frontrighthiplink" file="frontrighthiplink.STL"/>
-    <mesh name="frontrightflipperlink" file="frontrightflipperlink.STL"/>
-    <mesh name="frontlefthiplink" file="frontlefthiplink.STL"/>
-    <mesh name="frontleftflipperlink" file="frontleftflipperlink.STL"/>
     <texture builtin="checker" height="100" name="texplane" rgb1="0.5 0.5 0.5" rgb2="0.8 0.8 0.8" type="2d" width="100"/>
     <material name="MatPlane" reflectance="0.5" shininess="1" specular="1" texrepeat="15 15" texture="texplane"/>
-    <hfield name="rocky_terrain" size="1 1 0.1 0.01" file="rocky_terrain.png"/>
   </asset>
 
   <worldbody>

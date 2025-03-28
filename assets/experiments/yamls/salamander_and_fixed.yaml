@@ -1,0 +1,5 @@
+robot_model: salamander.xml
+terrain_model: boulder_field_terrain.xml
+simulation: salamander_gait_test.py
+
+
