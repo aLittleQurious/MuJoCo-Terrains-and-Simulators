@@ -31,6 +31,7 @@ def main():
         
     if terrain_type == "fixed":
         generate_fixed_terrain.append_rocks(template_file_path, output_file_path, **parameters)
+    #Warning, movable terrains in MuJoco are difficult to work with. They are not the same as fixed terrains.
     if terrain_type == "movable":
         generate_movable_terrain.append_rocks(template_file_path, output_file_path, **parameters)
 
